@@ -13,8 +13,7 @@ import BasicAppShell from './BasicAppShell.svelte';
  * Note: If you are not extending `options` like this example app class you can use `SvelteApp.Options<BasicAppShell>`
  * as the generic parameter to `SvelteApp`.
  */
-class BasicApp extends SvelteApp<BasicApp.Options>
-{
+class BasicApp extends SvelteApp<BasicApp.Options> {
    /**
     * Unless you are defining additional options or setup you may omit a constructor.
     *
@@ -23,16 +22,14 @@ class BasicApp extends SvelteApp<BasicApp.Options>
     *
     * @param [options] - BasicApp options to handle.
     */
-   constructor(options?: BasicApp.Options)
-   {
+   constructor(options?: BasicApp.Options) {
       super(options);
    }
 
-   static get defaultOptions(): BasicApp.Options
-   {
+   static get defaultOptions(): BasicApp.Options {
       return deepMerge<SvelteApp.Options, BasicApp.Options>(super.defaultOptions, {
          extra: true,   // Typed extra option from `BasicApp.Options` below.
-         id: 'template-svelte-ts-league',
+         id: 'aafo-hud',
          resizable: true,
          minimizable: true,
          width: '25%',  // Just showing off you can use browser window percentages too!
@@ -70,8 +67,7 @@ class BasicApp extends SvelteApp<BasicApp.Options>
       });
    }
 
-   _getHeaderButtons(): SvelteApp.HeaderButton[]
-   {
+   _getHeaderButtons(): SvelteApp.HeaderButton[] {
       const buttons: SvelteApp.HeaderButton[] = super._getHeaderButtons();
 
       // Basic data tracking for button below; use another mechanism in your actual code!
@@ -85,8 +81,7 @@ class BasicApp extends SvelteApp<BasicApp.Options>
          keepMinimized: true,             // When true the header button remains when app is minimized.
 
          // The button data can be modified and reactive updates occur after the function completes.
-         onPress: ({ button }: { button: SvelteApp.HeaderButton }): void =>
-         {
+         onPress: ({ button }: { button: SvelteApp.HeaderButton }): void => {
             // Demo of changing the header button title / CSS.
             themeDark = !themeDark;
             button.title = themeDark ? 'Dark Mode disable' : 'Dark Mode enable';
@@ -112,8 +107,7 @@ class BasicApp extends SvelteApp<BasicApp.Options>
     * TRL will limit access to only props and `$set` and `$on`. `$destroy` is considered protected. Use the `close`
     * method to close an app window as per normal; this will destroy the mounted app shell component.
     */
-   testingAppShell(): void
-   {
+   testingAppShell(): void {
       // App shell may be null, but with optional chaining you can access $set and $on.
       this.svelte.appShell?.$set({ test: false });
 
@@ -124,8 +118,7 @@ class BasicApp extends SvelteApp<BasicApp.Options>
       // this.svelte.appShell?.$destroy();
 
       // To set accessors directly you need to wrap in a null check.
-      if (this.svelte.appShell)
-      {
+      if (this.svelte.appShell) {
          this.svelte.appShell.test = true;
 
          // App shell protected props are disallowed.

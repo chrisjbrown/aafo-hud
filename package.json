@@ -1,5 +1,5 @@
 {
-  "name": "template-svelte-ts-league",
+  "name": "aafo-hud",
   "description": "Provides a bare bones Typescript (League) template repo to get set up with using the the TyphonJS Runtime Library and Svelte.",
   "license": "MIT",
   "private": true,
