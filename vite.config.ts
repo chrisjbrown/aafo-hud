@@ -18,7 +18,7 @@ const s_PACKAGE_ID = `modules/${moduleJSON.id}`;
 // A short additional string to add to Svelte CSS hash values to make yours unique. This reduces the amount of
 // duplicated framework CSS overlap between many TRL packages enabled on Foundry VTT at the same time. 'tst' is chosen
 // by shortening 'aafo-hud'.
-const s_SVELTE_HASH_ID = 'aafohud';
+const s_SVELTE_HASH_ID = 'aafo-hud';
 
 const s_COMPRESS = false;  // Set to true to compress the module bundle.
 const s_SOURCEMAPS = true; // Generate sourcemaps for the bundle (recommended).
