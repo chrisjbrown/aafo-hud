@@ -1,20 +1,20 @@
 <script>
-  export let skills = null
   export let actorId = null
+  export let attacks = null
   export let id = null
 
-  function dispatchSkillRoll(skill) {
-    Hooks.call("aafohud.skillRoll", actorId, skill);
+  function dispatchAttackRoll(weaponId) {
+    Hooks.call("aafohud.attackRoll", actorId, weaponId);
   }
 </script>
 
 <div id={id} class="popover">
-  {#each skills as skill}
-    <button on:click={() => dispatchSkillRoll(skill.id)}>{skill.label}</button>
+  {#each attacks as attack}
+    <button on:click={() => dispatchAttackRoll(attack.id)}>{attack.name}</button>
   {/each}
 </div>
   
-<style>
+<style lang="scss">
   .popover {
     display: flex;
     gap: 3px;
@@ -26,6 +26,10 @@
     pointer-events: all;
     border-radius: 5px;
     z-index: var(--z-index-app);
+
+    button {
+      width: auto;
+    }
   }
 </style>
   

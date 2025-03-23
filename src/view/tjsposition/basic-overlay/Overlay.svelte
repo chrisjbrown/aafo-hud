@@ -4,12 +4,16 @@
    import { EmptyApplicationShell } from '#runtime/svelte/component/application';
    import Panel from './Panel.svelte'
    import Skills from './Skills.svelte'
+   import Attacks from './Attacks.svelte'
    import Portrait from './Portrait.svelte'
 
    export let elementRoot = void 0;
    let actor = null;
    let abilities = [];
    let stats = null
+   let skills = null
+   let attacks = null
+   let actorId = null
 
    function getActor() {
       if (game.user.isGM) {
@@ -46,6 +50,8 @@
             ac: actor.system.armorClass,
             pt: actor.system.penaltyTotal,
          }
+         skills = Object.values(actor.system.skills)
+         attacks = actor.items.filter(item => ['meleeWeapon', 'rangedWeapon'].includes(item.type))
       }
    }
 
@@ -99,7 +105,12 @@
          </div>
       </Panel>
       {#if actor}
-         <Skills actor={actor}/>
+         <Panel>
+            <div class="horizontal">
+               <Skills actorId={actor.id} skills={skills} />
+               <Attacks actorId={actor.id} attacks={attacks} />
+            </div>
+         </Panel>
       {/if}
       <!-- <Panel>
          <div class="group infos">
@@ -183,6 +194,10 @@
             display: flex;
             gap: 5px;
          }
+      }
+
+      .horizontal {
+         display: flex;
       }
 
       .main {
