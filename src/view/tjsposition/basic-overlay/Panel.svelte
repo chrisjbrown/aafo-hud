@@ -9,7 +9,7 @@
  <style lang="scss">
     .panel {
         pointer-events: all;
-        background: url(../ui/denim075.png) repeat;
+        background: var(--outer-background);
         border-radius: 5px;
     }
  </style>

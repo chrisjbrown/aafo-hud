@@ -59,7 +59,7 @@
 
 <style lang="scss">
     .portrait {
-        background: url(../ui/denim075.png) repeat;
+        background: var(--outer-background);
         border-radius: 5px;
         position: relative;
         height: 100%;
