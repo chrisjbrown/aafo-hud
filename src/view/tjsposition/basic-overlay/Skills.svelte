@@ -7,7 +7,7 @@
 </script>
   
 <Popover component={SkillPopover} props={{ actorId, skills }}>
-  <div class="skills">
+  <div class="skills { skills?.length === 0 ? 'fade' : '' }">
     <!-- svelte-ignore a11y-missing-attribute -->
     <a data-tooltip="skills" role="button">
         <i class="fa-solid fa-hand"></i>
@@ -21,6 +21,10 @@
         color: white;
         padding: 5px;
         min-width: 24px;
+        &.fade {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
     }
   </style>
   

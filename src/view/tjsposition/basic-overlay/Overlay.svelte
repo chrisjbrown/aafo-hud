@@ -5,6 +5,7 @@
    import Panel from './Panel.svelte'
    import Skills from './Skills.svelte'
    import Attacks from './Attacks.svelte'
+   import Items from './Items.svelte'
    import Portrait from './Portrait.svelte'
 
    export let elementRoot = void 0;
@@ -13,7 +14,7 @@
    let stats = null
    let skills = null
    let attacks = null
-   let actorId = null
+   let items = null
 
    function getActor() {
       if (game.user.isGM) {
@@ -25,17 +26,17 @@
          return game.actors.get(game.user.character.id)
       } catch (error) {
          console.error(error)
-         ui.notifications.warn('AAFO-HUD: Actor not found')
+         ui.notifications.warn('AAFO-HUD: Actor not found, have you assigned a player character to this user in the user configuration?')
          return null
       }
    }
 
    function setActor() {
       actor = getActor()
-      console.log('actor', actor)
       if (actor) {
          abilities = Object.values(actor.system.abilities).map((a) => {
             return {
+               key: a.abbr,
                label: a.label,
                value: a.value,
                mod: a.mod,
@@ -51,20 +52,17 @@
             pt: actor.system.penaltyTotal,
          }
          skills = Object.values(actor.system.skills)
-         attacks = actor.items.filter(item => ['meleeWeapon', 'rangedWeapon'].includes(item.type))
+         attacks = actor.items.filter(item => item.system.itemEquipped).filter(item => ['meleeWeapon', 'rangedWeapon'].includes(item.type))
+         items = actor.items.filter(item => !item.system.itemEquipped)
       }
    }
 
    Hooks.on('controlToken', setActor);
    Hooks.on('updateActor', setActor);
+   Hooks.on('refreshToken', setActor);
 
    function onAbilityClick(ability) {
-      let roll = new Roll(`1d20 + ${ability.mod}`, actor.getRollData())
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: actor }),
-        flavor: ability.label,
-        rollMode: game.settings.get('core', 'rollMode'),
-      })
+      actor.abilityRoll(ability.key)
    }
    
 </script>
@@ -109,6 +107,7 @@
             <div class="horizontal">
                <Skills actorId={actor.id} skills={skills} />
                <Attacks actorId={actor.id} attacks={attacks} />
+               <!-- <Items actorId={actor.id} items={items} /> -->
             </div>
          </Panel>
       {/if}
