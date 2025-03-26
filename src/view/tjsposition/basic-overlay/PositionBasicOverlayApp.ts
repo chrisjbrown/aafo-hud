@@ -17,6 +17,7 @@ export class PositionBasicOverlayApp extends SvelteApp {
          minimizable: false,
          positionable: false,
          resizable: false,
+         popOut: false,
 
          svelte: {
             class: Overlay,
