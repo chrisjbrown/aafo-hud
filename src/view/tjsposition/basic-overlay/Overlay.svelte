@@ -14,7 +14,8 @@
    let stats = null
    let skills = null
    let attacks = null
-   let items = null
+   let equipables = null
+   let consumables = null
 
    function getActor() {
       if (game.user.isGM) {
@@ -53,7 +54,8 @@
          }
          skills = Object.values(actor.system.skills)
          attacks = actor.items.filter(item => item.system.itemEquipped).filter(item => ['meleeWeapon', 'rangedWeapon'].includes(item.type))
-         items = actor.items.filter(item => !item.system.itemEquipped)
+         equipables = actor.items.filter(item => ['meleeWeapon', 'rangedWeapon', 'armor', 'powerArmor'].includes(item.type))
+         consumables = actor.items.filter(item => ['chem'].includes(item.type) && item.system.quantity > 0)
       }
    }
 
@@ -107,7 +109,7 @@
             <div class="horizontal">
                <Skills actorId={actor.id} skills={skills} />
                <Attacks actorId={actor.id} attacks={attacks} />
-               <!-- <Items actorId={actor.id} items={items} /> -->
+               <Items actorId={actor.id} equipables={equipables} consumables={consumables} />
             </div>
          </Panel>
       {/if}

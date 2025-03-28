@@ -3,11 +3,12 @@
     import Popover from './Popover.svelte';
 
     export let actorId = null
-    export let items = null
+    export let equipables = []
+    export let consumables = []
   </script>
   
-<Popover component={ItemsPopover} props={{ actorId, items }}>
-  <div class="items { items?.length === 0 ? 'fade' : '' }">
+<Popover component={ItemsPopover} props={{ actorId, equipables, consumables }}>
+  <div class="items { [...equipables, ...consumables]?.length === 0  ? 'fade' : '' }">
     <!-- svelte-ignore a11y-missing-attribute -->
     <a data-tooltip="items" role="button">
       <i class="fa-solid fa-backpack"></i>

@@ -4,8 +4,8 @@
  * @type {{moduleId: string, moduleLabel: string}}
  */
 const constants = {
-   moduleId: 'essential-svelte-esm',
-   moduleLabel: `Essential Svelte (ESM)`
+   moduleId: 'aafo-hud',
+   moduleLabel: `AAFO Hud`
 };
 
 /**
