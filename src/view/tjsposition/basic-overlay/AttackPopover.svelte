@@ -10,7 +10,12 @@
 
 <div id={id} class="popover">
   {#each attacks as attack}
-    <button on:click={() => dispatchAttackRoll(attack.id)}>{attack.name}</button>
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <!-- svelte-ignore a11y-missing-attribute -->
+  <div class="item">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <a on:click={() => dispatchAttackRoll(attack.id)}>{attack.name}</a>
+  </div>
   {/each}
 </div>
   
@@ -26,9 +31,13 @@
     pointer-events: all;
     border-radius: 5px;
     z-index: var(--z-index-app);
+    background: url("../../../ui/denim075.png") repeat #4d4d4d;
 
-    button {
-      width: auto;
+    .item {
+      margin: 5px;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

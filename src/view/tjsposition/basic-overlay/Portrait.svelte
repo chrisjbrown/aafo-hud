@@ -148,6 +148,11 @@
                         background: rgba(33, 33, 33, .7019607843);
                         color: white;
                         width: var(--input-width);
+                        text-align: center;
+                        border: none;
+                        &:focus {
+                            box-shadow: 0 0 5px var(--color-shadow-primary);
+                        }
                     }
                 }
             }

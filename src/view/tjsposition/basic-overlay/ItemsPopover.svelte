@@ -90,10 +90,6 @@
         opacity: 0.5;
       }
     }
-
-    button {
-      width: auto;
-    }
   }
 </style>
   
