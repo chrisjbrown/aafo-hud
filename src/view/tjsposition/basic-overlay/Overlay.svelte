@@ -83,7 +83,7 @@
     * draggable action to that without the need for `hasTargetClassList`.
    -->
    <div class="overlay" role="application">
-      <Portrait name={actor?.name} img={actor?.img} stats={stats}/>
+      <Portrait actor={actor} stats={stats}/>
       <Panel>
          <div class="abilities">
             <!-- svelte-ignore a11y-missing-attribute -->
