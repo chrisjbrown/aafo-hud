@@ -1,17 +1,48 @@
-<script>
-    export let img;
-    export let name;
+<script lang='ts'>
     export let stats;
+    export let actor;
+
+    let timer: NodeJS.Timeout
+    function onChange(event: any, attribute: string) {
+        if (event.target.value) {
+            debounceUpdateActor(Number(event.target.value), attribute)
+        }
+    }
+
+    function getAttribute(attribute: string) {
+        switch (attribute) {
+            case 'hp':
+                return 'system.health.value'
+            case 'sp':
+                return 'system.stamina.value'
+            case 'ap':
+                return 'system.actionPoints.value'
+            default:
+                return ''
+        }
+    }
+
+    const debounceUpdateActor = (newValue: number, attribute: string) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            const attrKey = getAttribute(attribute)
+            try {
+                actor.update({ [attrKey]: newValue })
+            } catch (error) {
+                console.error('AAFO-HUD', `Error updating actor attribute: ${attribute}`, error)
+            }
+        }, 750);
+    }
 </script>
 
 <div class="portrait">
     <div class="top">
-       {#if name}
-          {name}
+       {#if actor?.name}
+          {actor.name}
        {/if}
     </div>
-    {#if img}
-       <div class="avatar" style="background-image: url({img});"/>
+    {#if actor?.img}
+       <div class="avatar" style="background-image: url({actor.img});"/>
     {/if}
     {#if stats?.sp}
         <div class="bottom">
@@ -22,9 +53,11 @@
 
             <!-- health -->
             <div class="stat" data-tooltip="Health points">
-                <div data-tooltip="health points">
+                <div class="field" data-tooltip="health points">
                     <i class="fa-solid fa-heart"></i>
-                    {stats.hp.value}/{stats.hp.max}
+                    <input value={stats.hp.value} on:input={(e) => onChange(e, 'hp')} />
+                    <div>/</div>
+                    <div>{stats.hp.max}</div>
                 </div>
             </div>
 
@@ -33,11 +66,13 @@
                 {stats.dt.value}
             </div>
 
-            <!-- action -->
-            <div class="stat" data-tooltip="Action points">
-                <i class="fa-solid fa-bolt"></i>
-                <div>
-                    {stats.ap.value}/{stats.ap.max}   
+            <!-- stamina -->
+            <div class="stat" data-tooltip="Stamina points" on:input={(e) => onChange(e, 'sp')}>
+                <i class="fa-solid fa-droplet"></i>
+                <div class="field">
+                    <input value={stats.sp.value} />
+                    <div>/</div>
+                    <div>{stats.sp.max}</div>
                 </div>
             </div>
 
@@ -46,11 +81,13 @@
                 {stats.pt}
             </div>
 
-            <!-- stamina -->
-            <div class="stat" data-tooltip="Stamina points">
-                <i class="fa-solid fa-droplet"></i>
-                <div>
-                    {stats.sp.value}/{stats.sp.max}   
+            <!-- action -->
+            <div class="stat" data-tooltip="Action points">
+                <i class="fa-solid fa-bolt"></i>
+                <div class="field">
+                    <input value={stats.ap.value} on:input={(e) => onChange(e, 'ap')} />
+                    <div>/</div>
+                    <div>{stats.ap.max}</div>
                 </div>
             </div>
         </div>
@@ -102,6 +139,17 @@
                 display: flex;
                 gap: 5px;
                 margin: 0 auto;
+
+                .field {
+                    display:flex;
+                    align-items: center;
+                    gap: 5px;
+                    input {
+                        background: rgba(33, 33, 33, .7019607843);
+                        color: white;
+                        width: var(--input-width);
+                    }
+                }
             }
         }
     }
