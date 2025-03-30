@@ -107,9 +107,9 @@
       {#if actor}
          <Panel>
             <div class="horizontal">
-               <Skills actorId={actor.id} skills={skills} />
-               <Attacks actorId={actor.id} attacks={attacks} />
-               <Items actorId={actor.id} equipables={equipables} consumables={consumables} />
+               <Skills actorUuid={actor.uuid} skills={skills} />
+               <Attacks actorUuid={actor.uuid} attacks={attacks} />
+               <Items actorUuid={actor.uuid} equipables={equipables} consumables={consumables} />
             </div>
          </Panel>
       {/if}

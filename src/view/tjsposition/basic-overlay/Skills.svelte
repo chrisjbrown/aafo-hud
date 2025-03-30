@@ -2,11 +2,11 @@
   import SkillPopover from './SkillPopover.svelte';
   import Popover from './Popover.svelte';
 
-  export let actorId = null
+  export let actorUuid = null
   export let skills = null
 </script>
   
-<Popover component={SkillPopover} props={{ actorId, skills }}>
+<Popover component={SkillPopover} props={{ actorUuid, skills }}>
   <div class="skills { skills?.length === 0 ? 'fade' : '' }">
     <!-- svelte-ignore a11y-missing-attribute -->
     <a data-tooltip="skills" role="button">
