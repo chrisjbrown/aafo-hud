@@ -1,5 +1,5 @@
 <script>
-  export let actorId = null
+  export let actorUuid = null
   export let equipables = null
   export let consumables = null
   export let id = null
@@ -8,21 +8,21 @@
     switch (item.type) {
       case 'armor':
       case 'powerArmor':
-        Hooks.call('aafohud.toggleEquipArmor', actorId, item.id)
+        Hooks.call('aafohud.toggleEquipArmor', actorUuid, item.id)
         return
       case 'rangedWeapon':
       case 'meleeWeapon':
-        Hooks.call('aafohud.toggleEquipWeapon', actorId, item.id)
+        Hooks.call('aafohud.toggleEquipWeapon', actorUuid, item.id)
         return
     }
   }
 
   function reloadWeapon(item) {
-    Hooks.call('aafohud.reloadWeapon', actorId, item.id)
+    Hooks.call('aafohud.reloadWeapon', actorUuid, item.id)
   }
 
   function useItem(item) {
-    Hooks.call('aafohud.useConsumable', actorId, item.id)
+    Hooks.call('aafohud.useConsumable', actorUuid, item.id)
   }
 </script>
 

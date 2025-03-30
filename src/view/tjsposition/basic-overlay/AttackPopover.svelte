@@ -1,10 +1,10 @@
 <script>
-  export let actorId = null
+  export let actorUuid = null
   export let attacks = null
   export let id = null
 
   function dispatchAttackRoll(weaponId) {
-    Hooks.call("aafohud.attackRoll", actorId, weaponId);
+    Hooks.call("aafohud.attackRoll", actorUuid, weaponId);
   }
 </script>
 
