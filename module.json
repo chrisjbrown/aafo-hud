@@ -1,11 +1,11 @@
 {
   "id": "aafo-hud",
   "title": "AAFO-HUD",
-  "description": "Provides a bare bones Typescript (League) template repo to get set up with using the TyphonJS Runtime Library and Svelte.",
+  "description": "Adds token action hud for players and GM",
   "authors": [
     {
-      "name": "YOUR NAME HERE",
-      "url": "YOUR URL HERE"
+      "name": "chrisjbrown",
+      "url": "https://github.com/chrisjbrown"
     }
   ],
   "version": "0.0.0",
@@ -26,7 +26,7 @@
         "type": "system",
         "manifest": "https://github.com/Siggysaw/fallout-arcane-arcade/releases/latest/download/system.json",
         "compatibility": {
-          "minimum": "0.0.65"
+          "minimum": "0.1.0"
         }
       }
     ]
@@ -48,12 +48,12 @@
       "path": "lang/en.json"
     }
   ],
-  "url": "https://github.com/typhonjs-fvtt-demo/aafo-hud",
-  "readme": "https://github.com/typhonjs-fvtt-demo/aafo-hud/blob/master/README.md",
-  "bugs": "https://github.com/typhonjs-fvtt-demo/aafo-hud/issues",
-  "changelog": "https://github.com/typhonjs-fvtt-demo/aafo-hud/releases/latest/",
-  "manifest": "https://github.com/typhonjs-fvtt-demo/aafo-hud/releases/latest/download/module.json",
-  "download": "https://github.com/typhonjs-fvtt-demo/aafo-hud/releases/download/0.0.0/module.zip",
+  "url": "https://github.com/chrisjbrown/aafo-hud",
+  "readme": "https://github.com/chrisjbrown/aafo-hud/blob/master/README.md",
+  "bugs": "https://github.com/chrisjbrown/aafo-hud/issues",
+  "changelog": "https://github.com/chrisjbrown/aafo-hud/releases/latest/",
+  "manifest": "This is auto replaced",
+  "download": "This is auto replaced",
   "socket": false,
   "protected": false,
   "coreTranslation": false,

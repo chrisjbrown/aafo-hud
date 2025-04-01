@@ -4,10 +4,6 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "author": "YOUR INFO HERE",
-  "contributors": [
-    "YOUR INFO HERE"
-  ],
   "imports": {
     "#runtime/*": "@typhonjs-fvtt/runtime/*",
     "#standard/*": "@typhonjs-fvtt/standard/*",
