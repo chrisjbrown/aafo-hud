@@ -19,6 +19,18 @@
   "styles": [
     "dist/aafo-hud.css"
   ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "arcane-arcade-fallout",
+        "type": "system",
+        "manifest": "https://github.com/Siggysaw/fallout-arcane-arcade/releases/latest/download/system.json",
+        "compatibility": {
+          "minimum": "0.0.66"
+        }
+      }
+    ]
+  },
   "flags": {
     "hotReload": {
       "extensions": [
