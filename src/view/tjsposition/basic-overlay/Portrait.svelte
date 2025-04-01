@@ -55,7 +55,7 @@
             <div class="stat" data-tooltip="Health points">
                 <div class="field" data-tooltip="health points">
                     <i class="fa-solid fa-heart"></i>
-                    <input value={stats.hp.value} on:input={(e) => onChange(e, 'hp')} />
+                    <input type="number" value={stats.hp.value} on:input={(e) => onChange(e, 'hp')} />
                     <div>/</div>
                     <div>{stats.hp.max}</div>
                 </div>
@@ -70,7 +70,7 @@
             <div class="stat" data-tooltip="Stamina points" on:input={(e) => onChange(e, 'sp')}>
                 <i class="fa-solid fa-droplet"></i>
                 <div class="field">
-                    <input value={stats.sp.value} />
+                    <input type="number" value={stats.sp.value} />
                     <div>/</div>
                     <div>{stats.sp.max}</div>
                 </div>
@@ -85,7 +85,7 @@
             <div class="stat" data-tooltip="Action points">
                 <i class="fa-solid fa-bolt"></i>
                 <div class="field">
-                    <input value={stats.ap.value} on:input={(e) => onChange(e, 'ap')} />
+                    <input type="number" value={stats.ap.value} on:input={(e) => onChange(e, 'ap')} />
                     <div>/</div>
                     <div>{stats.ap.max}</div>
                 </div>
