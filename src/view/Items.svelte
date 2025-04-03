@@ -1,6 +1,6 @@
 <script>
-    import ItemsPopover from './ItemsPopover.svelte';
-    import Popover from './Popover.svelte';
+    import ItemsPopover from './popovers/ItemsPopover.svelte';
+    import Popover from './popovers/Popover.svelte';
 
     export let actorUuid = null
     export let equipables = []

@@ -1,6 +1,6 @@
 <script>
-  import SkillPopover from './SkillPopover.svelte';
-  import Popover from './Popover.svelte';
+  import SkillPopover from './popovers/SkillPopover.svelte';
+  import Popover from './popovers/Popover.svelte';
 
   export let actorUuid = null
   export let skills = null

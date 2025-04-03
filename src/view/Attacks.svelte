@@ -1,6 +1,6 @@
 <script>
-    import AttackPopover from './AttackPopover.svelte';
-    import Popover from './Popover.svelte';
+    import AttackPopover from './popovers/AttackPopover.svelte';
+    import Popover from './popovers/Popover.svelte';
 
     export let actorUuid = null
     export let attacks = null

@@ -12,6 +12,8 @@
   {#each skills as skill}
     <div class="item">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
+      <!-- svelte-ignore a11y-missing-attribute -->
       <a on:click={() => dispatchSkillRoll(skill.id)}>{skill.label}</a>
     </div>
   {/each}

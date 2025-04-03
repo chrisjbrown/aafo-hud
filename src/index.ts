@@ -1,4 +1,4 @@
-import { PositionBasicOverlayApp } from './view/tjsposition/basic-overlay/PositionBasicOverlayApp';
+import { PositionBasicOverlayApp } from './view/PositionBasicOverlayApp';
 import '../styles/base.scss'; // Import any styles as this includes them in the build.
 import { constants } from '#constants';
 
