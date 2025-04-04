@@ -6,9 +6,24 @@
    import Items from './Items.svelte'
    import Portrait from './Portrait.svelte'
    import Special from './Special.svelte'
+   import Common from './Common.svelte'
+
+   type Actor = {
+      name: string
+      img: string
+      recycleAp: Function
+      system: {
+         abilities: [{
+            label: string
+            abbr: string
+            value: string
+            mod: string
+         }]
+      }
+   }
 
    export let elementRoot = void 0;
-   let actor = null;
+   let actor: Actor = null;
    let abilities = [];
    let stats = null
    let skills = null
@@ -121,11 +136,7 @@
                   <Skills actorUuid={actor.uuid} skills={skills} />
                   <Attacks actorUuid={actor.uuid} attacks={attacks} />
                   <Items actorUuid={actor.uuid} equipables={equipables} consumables={consumables} />
-               </div>
-            </Panel>
-            <Panel>
-               <div class="penalties" data-section="level" data-tooltip="Caps">
-                  <i class="fa-solid fa-user-graduate"></i>
+                  <Common actorUuid={actor.uuid} />
                </div>
             </Panel>
          </div>
