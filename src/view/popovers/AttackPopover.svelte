@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let actorUuid = null
   export let attacks = null
   export let id = null

@@ -1,8 +1,8 @@
-<script>
-  export let actorUuid = null
-  export let equipables = null
-  export let consumables = null
-  export let id = null
+<script lang="ts">
+  export let actorUuid = ''
+  export let equipables = []
+  export let consumables = []
+  export let id = ''
 
   function toggleEquip(item) {
     switch (item.type) {
@@ -36,13 +36,13 @@
         {/if}
       </div>
       <div>
-        <span class="action { equipable.system.itemEquipped ? '' : 'fade' }" data-tooltip={equipable.system.itemEquipped ? 'unequip' : 'equip'}>
+        <span class="action { equipable.system.itemEquipped ? '' : 'fade' }" data-tooltip={equipable.system.itemEquipped ? 'Unequip' : 'Equip'}>
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
           <i class="fa-solid fa-shirt" on:click={() => toggleEquip(equipable)}></i>
         </span>
         {#if equipable.type === 'rangedWeapon'}
-          <span class="action" data-tooltip="reload">
+          <span class="action" data-tooltip="Reload">
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
             <i class="fa-solid fa-refresh" on:click={() => reloadWeapon(equipable)}></i>

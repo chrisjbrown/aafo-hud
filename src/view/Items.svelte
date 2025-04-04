@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
     import ItemsPopover from './popovers/ItemsPopover.svelte';
     import Popover from './popovers/Popover.svelte';
 
-    export let actorUuid = null
+    export let actorUuid = ''
     export let equipables = []
     export let consumables = []
   </script>
@@ -10,7 +10,7 @@
 <Popover component={ItemsPopover} props={{ actorUuid, equipables, consumables }}>
   <div class="items { [...equipables, ...consumables]?.length === 0  ? 'fade' : '' }">
     <!-- svelte-ignore a11y-missing-attribute -->
-    <a data-tooltip="items" role="button">
+    <a data-tooltip="Items" role="button">
       <i class="fa-solid fa-backpack"></i>
     </a>
   </div>

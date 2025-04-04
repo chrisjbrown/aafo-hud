@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
     import { createPopper } from '@popperjs/core/dist/esm';
+   import { SvelteComponent } from 'svelte';
 
     export let props = null
-    export let component = null
+    export let component = SvelteComponent
     let ref;
     let popperInstance = null
     let componentInstance = null

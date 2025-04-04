@@ -1,12 +1,11 @@
-<script>
-   import { getContext }            from 'svelte';
-
+<script lang="ts">
    import { EmptyApplicationShell } from '#runtime/svelte/component/application';
    import Panel from './Panel.svelte'
    import Skills from './Skills.svelte'
    import Attacks from './Attacks.svelte'
    import Items from './Items.svelte'
    import Portrait from './Portrait.svelte'
+   import Special from './Special.svelte'
 
    export let elementRoot = void 0;
    let actor = null;
@@ -63,9 +62,39 @@
    Hooks.on('updateActor', setActor);
    Hooks.on('refreshToken', setActor);
 
-   function onAbilityClick(ability) {
-      actor.abilityRoll(ability.key)
+   function onAbilityClick(event: any) {
+      actor.abilityRoll(event.detail.key)
    }
+
+   let timer: NodeJS.Timeout
+    function onAttributeChange(event: any) {
+         debounceUpdateActor(Number(event.detail.value), event.detail.key)
+    }
+
+    function getAttribute(attribute: string) {
+        switch (attribute) {
+            case 'hp':
+                return 'system.health.value'
+            case 'sp':
+                return 'system.stamina.value'
+            case 'ap':
+                return 'system.actionPoints.value'
+            default:
+                return ''
+        }
+    }
+
+    const debounceUpdateActor = (newValue: number, attribute: string) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            const attrKey = getAttribute(attribute)
+            try {
+                actor.update({ [attrKey]: newValue })
+            } catch (error) {
+                console.error('AAFO-HUD', `Error updating actor attribute: ${attribute}`, error)
+            }
+        }, 750);
+    }
    
 </script>
 
@@ -83,54 +112,24 @@
     * draggable action to that without the need for `hasTargetClassList`.
    -->
    <div class="overlay" role="application">
-      <Portrait actor={actor} stats={stats}/>
-      <Panel>
-         <div class="abilities">
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <div class="app panel">
-               { #each abilities as ability}
-                  <!-- svelte-ignore a11y-click-events-have-key-events -->
-                  <a
-                     class="section"
-                     data-tooltip="{ability.label}"
-                     role="button"
-                     tabindex="0"
-                     on:click={() => onAbilityClick(ability)}
-                  >
-                     <span><i class="{ability.iconClass}"></i></span>
-                     <span>{ability.value}</span>
-                  </a>
-               {/each}
-            </div>
-         </div>
-      </Panel>
+      <Portrait name={actor?.name} img={actor?.img} stats={stats} on:updateAttribute={onAttributeChange} />
+      <Special abilities={abilities} on:abilityCheck={onAbilityClick} />
       {#if actor}
-         <Panel>
-            <div class="horizontal">
-               <Skills actorUuid={actor.uuid} skills={skills} />
-               <Attacks actorUuid={actor.uuid} attacks={attacks} />
-               <Items actorUuid={actor.uuid} equipables={equipables} consumables={consumables} />
-            </div>
-         </Panel>
-      {/if}
-      <!-- <Panel>
-         <div class="group infos">
-            <div class="app panel">
-               <div class="info section" data-section="level" data-tooltip="PF2E.CharacterLevelLabel">
+         <div>
+            <Panel>
+               <div class="horizontal">
+                  <Skills actorUuid={actor.uuid} skills={skills} />
+                  <Attacks actorUuid={actor.uuid} attacks={attacks} />
+                  <Items actorUuid={actor.uuid} equipables={equipables} consumables={consumables} />
+               </div>
+            </Panel>
+            <Panel>
+               <div class="penalties" data-section="level" data-tooltip="Caps">
                   <i class="fa-solid fa-user-graduate"></i>
                </div>
-               <div class="info section" data-section="level" data-tooltip="PF2E.CharacterLevelLabel">
-                  <i class="fa-solid fa-user-graduate"></i>
-               </div>
-               <div class="info section" data-section="level" data-tooltip="PF2E.CharacterLevelLabel">
-                  <i class="fa-solid fa-user-graduate"></i>
-               </div>
-               <div class="info section" data-section="level" data-tooltip="PF2E.CharacterLevelLabel">
-                  <i class="fa-solid fa-user-graduate"></i>
-               </div>
-            </div>
+            </Panel>
          </div>
-      </Panel> -->
+      {/if}
       <!-- <div class="main">
          <div class="group primary">
             <div class="app panel header">
@@ -201,96 +200,12 @@
          display: flex;
       }
 
-      .main {
-         --info-width: 2.24em;
-         --primary-width: 7.6em;
-         --one-three-rows: 1.1fr 3fr 0;
-         --attack-background: #171f6999;
-         --attack-border-color: #2e3a9c;
-         --damage-background: #6d101078;
-         --damage-border-color: #a41414;
-         --variant-background: #4f4732;
-         --variant-border-color: #9f916e;
-         --shortcut-title-border-color: #999999;
-         --shortcut-title-background: #121212;
-         position: relative;
+      .penalties {
+         color: white;
+         margin-top: 5px;
          display: flex;
-         width: fit-content;
-         width: fit-content;
-         height: var(--hud-height);
-         gap: var(--aafo-hud-panel-gap);
-
-         .group {
-            display: grid;
-            grid-template-rows: var(--one-three-rows);
-            gap: var(--aafo-hud-panel-gap);
-
-            &.abilities {
-               width: var(--info-width);
-               height: calc(var(--hotbar-height) + var(--hud-height));
-            }
-
-            &.primary {
-               width: var(--primary-width);
-               grid-template-columns: 1fr 1fr;
-
-               .header {
-                  grid-template-columns: repeat(2, 1fr);
-                  grid-column: 1 / span 2;
-               }
-            }
-
-            &.infos {
-               width: var(--info-width);
-               margin: 0;
-
-               .panel {
-                  grid-row: 1 / span 2;
-                  
-                  .section {
-                     display: grid;
-                     grid-template-columns: auto;
-                     align-items: center;
-                     gap: var(--inline-gap);
-                  }
-               }
-
-               .info {
-                  cursor: help;
-                  grid-template-columns: auto;
-                  margin: 0 auto;
-               }
-            }
-            
-            .panel {
-               padding: var(--panel-padding-block) calc(var(--panel-padding-inline) + .1em) var(--panel-padding-block) var(--panel-padding-inline);
-
-               .section {
-                  display: grid;
-                  grid-template-columns: auto auto;
-                  align-items: center;
-                  gap: var(--inline-gap);
-               }
-            }
-
-            &.stretch {
-               flex: 1;
-
-               .top {
-                  display: flex;
-                  gap: var(--aafo-hud-panel-gap);
-
-                  .sidebars {
-                     min-width: 11.708em;
-                     grid-auto-flow: column;
-                     justify-content: start;
-                     width: -moz-fit-content;
-                     width: fit-content;
-                  }
-               }
-            }
-         }
       }
+
    }
 
    .panel {

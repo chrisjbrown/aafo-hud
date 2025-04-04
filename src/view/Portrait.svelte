@@ -1,93 +1,90 @@
 <script lang='ts'>
-    export let stats;
-    export let actor;
+  import { createEventDispatcher } from 'svelte';
+  export let stats;
+  export let name;
+  export let img;
 
-    let timer: NodeJS.Timeout
-    function onChange(event: any, attribute: string) {
-        if (event.target.value) {
-            debounceUpdateActor(Number(event.target.value), attribute)
-        }
-    }
+  const dispatch = createEventDispatcher();
 
-    function getAttribute(attribute: string) {
-        switch (attribute) {
-            case 'hp':
-                return 'system.health.value'
-            case 'sp':
-                return 'system.stamina.value'
-            case 'ap':
-                return 'system.actionPoints.value'
-            default:
-                return ''
-        }
-    }
-
-    const debounceUpdateActor = (newValue: number, attribute: string) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            const attrKey = getAttribute(attribute)
-            try {
-                actor.update({ [attrKey]: newValue })
-            } catch (error) {
-                console.error('AAFO-HUD', `Error updating actor attribute: ${attribute}`, error)
-            }
-        }, 750);
-    }
+  function onAttributeChange(e: Event, key: string) {
+    dispatch('updateAttribute', {
+        value: e.target.value,
+        key
+    })
+  }
 </script>
 
 <div class="portrait">
     <div class="top">
-       {#if actor?.name}
-          {actor.name}
+       {#if name}
+          {name}
        {/if}
     </div>
-    {#if actor?.img}
-       <div class="avatar" style="background-image: url({actor.img});"/>
+    {#if img}
+       <div class="avatar" style="background-image: url({img});"/>
     {/if}
     {#if stats?.sp}
         <div class="bottom">
             <div class="stat"  data-tooltip="Armor class">
-                <i class="fa-solid fa-shield"></i>
+                <div class="icon">
+                    <i class="fa-solid fa-shield"></i>
+                </div>
                 {stats.ac.value}
             </div>
 
             <!-- health -->
             <div class="stat" data-tooltip="Health points">
-                <div class="field" data-tooltip="health points">
+                <div class="icon">
                     <i class="fa-solid fa-heart"></i>
-                    <input type="number" value={stats.hp.value} on:input={(e) => onChange(e, 'hp')} />
-                    <div>/</div>
-                    <div>{stats.hp.max}</div>
+                </div>
+                <div class="field">
+                    <input type="number" value={stats.hp.value} on:input={(e) => onAttributeChange(e, 'hp')} />
+                    <div class="max">
+                        <div>/</div>
+                        <div>{stats.hp.max}</div>
+                    </div>
                 </div>
             </div>
 
             <div class="stat" data-tooltip="Damage threshold">
-                <i class="fa-solid fa-shield-halved"></i>
+                <div class="icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
                 {stats.dt.value}
             </div>
 
             <!-- stamina -->
-            <div class="stat" data-tooltip="Stamina points" on:input={(e) => onChange(e, 'sp')}>
-                <i class="fa-solid fa-droplet"></i>
+            <div class="stat" data-tooltip="Stamina points" on:input={(e) => onAttributeChange(e, 'sp')}>
+                <div class="icon">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
                 <div class="field">
                     <input type="number" value={stats.sp.value} />
-                    <div>/</div>
-                    <div>{stats.sp.max}</div>
+                    <div class="max">
+                        <div>/</div>
+                        <div>{stats.sp.max}</div>
+                    </div>
                 </div>
             </div>
 
             <div class="stat" data-tooltip="Penalty total">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div class="icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
                 {stats.pt}
             </div>
 
             <!-- action -->
             <div class="stat" data-tooltip="Action points">
-                <i class="fa-solid fa-bolt"></i>
+                <div class="icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
                 <div class="field">
-                    <input type="number" value={stats.ap.value} on:input={(e) => onChange(e, 'ap')} />
-                    <div>/</div>
-                    <div>{stats.ap.max}</div>
+                    <input type="number" value={stats.ap.value} on:input={(e) => onAttributeChange(e, 'ap')} />
+                    <div class="max">
+                        <div>/</div>
+                        <div>{stats.ap.max}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,7 +112,6 @@
         }
 
         .avatar {
-            margin: 2px;
             inset: 0;
             background-position: center top;
             background-repeat: no-repeat;
@@ -134,17 +130,26 @@
             background: rgba(33, 33, 33, .7019607843);
             padding: .2em .1em .1em;
             grid-template-columns: repeat(2, 1fr);
+            align-items: center;
 
             .stat {
                 display: flex;
                 gap: 5px;
                 margin: 0 auto;
 
+                .icon {
+                    width: 15px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
                 .field {
                     display:flex;
                     align-items: center;
                     gap: 5px;
                     input {
+                        height: 20px;
                         background: rgba(33, 33, 33, .7019607843);
                         color: white;
                         width: var(--input-width);
@@ -153,6 +158,12 @@
                         &:focus {
                             box-shadow: 0 0 5px var(--color-shadow-primary);
                         }
+                    }
+
+                    .max {
+                        display: flex;
+                        width: 30px;
+                        gap: 5px;
                     }
                 }
             }

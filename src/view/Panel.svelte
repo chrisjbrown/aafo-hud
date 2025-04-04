@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 
  </script>
  
@@ -11,6 +11,7 @@
         pointer-events: all;
         background: var(--outer-background);
         border-radius: 5px;
+        color: white;
     }
  </style>
  
