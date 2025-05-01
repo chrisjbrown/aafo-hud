@@ -24,7 +24,7 @@ export class PositionBasicOverlayApp extends SvelteApp {
             styles: {
                position: 'static',
             },
-            target: document.querySelector("#ui-left") || document.body
+            target: document.querySelector("#ui-left-column-1") || document.body
          }
       });
    }

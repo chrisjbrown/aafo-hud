@@ -18,8 +18,8 @@
                     tabindex="0"
                     on:click={() => dispatch('abilityCheck', ability)}
                 >
-                    <span><i class="{ability.iconClass}"></i></span>
-                    <span>{ability.value}</span>
+                    <span class="special"><i class="{ability.iconClass}"></i></span>
+                    <span class="value">{ability.value}</span>
                 </a>
             {/each}
         </div>
@@ -28,15 +28,29 @@
 
  <style lang="scss">
     .abilities {
-       width: var(--special-width);
-       border-radius: 5px;
-       height: calc(var(--hotbar-height) + var(--hud-height));
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px;
+        width: var(--special-width);
+        border-radius: 5px;
+        height: calc(var(--hotbar-height) + var(--hud-height));
 
        .ability {
-          display: flex;
-          gap: 5px;
-          padding-top: 5px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2px;
           justify-content: center;
+          align-items: center;
+
+          .special {
+            min-width: 15px;
+            text-align: center;
+          }
+          .value {
+            min-width: 15px;
+            text-align: center;
+          }
        }
     }
  </style>
