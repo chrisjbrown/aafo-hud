@@ -191,7 +191,6 @@
       font-size: var(--font-size);
       gap: var(--aafo-hud-panel-gap);
       height: calc(var(--hotbar-height) + var(--hud-height));
-      margin: var(--interface-margin);
       z-index: var(--z-index-app);
       width: var(--players-width);
       padding: 0;

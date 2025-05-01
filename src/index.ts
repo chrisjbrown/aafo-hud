@@ -2,6 +2,10 @@ import { PositionBasicOverlayApp } from './view/PositionBasicOverlayApp';
 import '../styles/base.scss'; // Import any styles as this includes them in the build.
 import { constants } from '#constants';
 
+// shim
+window.MIN_WINDOW_WIDTH = 200;
+window.MIN_WINDOW_HEIGHT = 50;
+
 /**
  * Launches and positions the main `essential-svelte-esm` menu app to the left of the sidebar.
  */
